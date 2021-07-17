@@ -14,6 +14,7 @@ const Theme = {
   fontWeightBold: '600',
   primaryColor: '#D5A770',
   border: '#e4e3e6',
+  grey: '#969696',
   black: '#333333',
   bgColor: '#F8F8F8',
   flexSet,
