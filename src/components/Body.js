@@ -3,10 +3,17 @@ import styled from 'styled-components';
 
 const Body = (props) => {
   const { totalDate } = props;
+  const lastDate = totalDate.indexOf(1);
+  const firstDate = totalDate.indexOf(1, 7);
+  console.log(lastDate, firstDate);
   return (
     <Form>
       {totalDate.map((elm, idx) => {
-        return <Date key={idx}>{elm}일</Date>;
+        return (
+          <Date key={idx} idx={idx} lastDate={lastDate} firstDate={firstDate}>
+            {elm}일
+          </Date>
+        );
       })}
     </Form>
   );
@@ -23,6 +30,19 @@ const Date = styled.li`
   text-align: right;
   border-bottom: 1px solid #e4e3e6;
   border-left: 1px solid #e4e3e6;
+
+  ${(props) =>
+    props.idx < props.lastDate &&
+    `
+    color: #969696;
+  `};
+
+  ${(props) =>
+    props.firstDate > 0 &&
+    props.idx > props.firstDate - 1 &&
+    `
+    color: #969696;
+  `};
 
   :nth-child(7n + 1),
   :nth-child(7n) {

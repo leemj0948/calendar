@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 const Head = (props) => {
-  const { year, month, changeMonth, goToday, setMonth } = props;
+  const { year, month, goToday, setMonth } = props;
   return (
     <Form>
       <Nav>
