@@ -13,7 +13,7 @@ const Theme = {
   fontWeightMedium: '400',
   fontWeightBold: '600',
   primaryColor: '#D5A770',
-  gray: '#474747',
+  border: '#e4e3e6',
   black: '#333333',
   bgColor: '#F8F8F8',
   flexSet,

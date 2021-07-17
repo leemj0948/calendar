@@ -20,5 +20,8 @@ const GlobalStyle = createGlobalStyle`
     border-style: none;
     cursor: pointer;
   }
+  li {
+    list-style: none;
+  }
 `;
 export default GlobalStyle;
