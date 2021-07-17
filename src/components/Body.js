@@ -2,10 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Body = (props) => {
-  const { thisDate } = props;
+  const { totalDate } = props;
   return (
     <Form>
-      {thisDate.map((elm, idx) => {
+      {totalDate.map((elm, idx) => {
         return <Date key={idx}>{elm}일</Date>;
       })}
     </Form>

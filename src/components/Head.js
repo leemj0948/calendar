@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 const Head = (props) => {
-  const { year, month } = props;
+  const { year, month, changeMonth, goToday, setMonth } = props;
   return (
     <Form>
       <Nav>
@@ -10,9 +10,11 @@ const Head = (props) => {
           {year}년 {month}월
         </Year>
         <BtnBox>
-          <Btn>&lt;</Btn>
-          <Btn width="3vw">오늘</Btn>
-          <Btn>&gt;</Btn>
+          <Btn onClick={() => setMonth(month - 1)}>&lt;</Btn>
+          <Btn width="3vw" onClick={() => goToday()}>
+            오늘
+          </Btn>
+          <Btn onClick={() => setMonth(month + 1)}>&gt;</Btn>
         </BtnBox>
       </Nav>
       <Days>
