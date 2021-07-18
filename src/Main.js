@@ -51,10 +51,19 @@ const Main = () => {
     setTotalDate(changeDate(month));
   }, [month]);
 
+  const [today, setToday] = useState(0);
+
+  const goToday = () => {
+    let TODAY = new Date().getDate();
+    let goMonth = new Date().getMonth() + 1;
+    setMonth(goMonth);
+    setToday(TODAY);
+  };
+
   return (
     <div>
-      <Head year={year} month={month} setMonth={setMonth} />
-      <Body totalDate={totalDate} />
+      <Head year={year} month={month} setMonth={setMonth} goToday={goToday} />
+      <Body totalDate={totalDate} today={today} month={month} />
     </div>
   );
 };
