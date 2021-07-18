@@ -63,7 +63,7 @@ const Main = () => {
   return (
     <div>
       <Head year={year} month={month} setMonth={setMonth} goToday={goToday} />
-      <Body totalDate={totalDate} today={today} month={month} />
+      <Body totalDate={totalDate} today={today} month={month} year={year} />
     </div>
   );
 };

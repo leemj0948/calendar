@@ -1,21 +1,41 @@
 import React from 'react';
 import styled from 'styled-components';
+import Modal from './Modal';
 
 const Dates = (props) => {
-  const { lastDate, firstDate, elm, getId, idx, findToday } = props;
+  const {
+    lastDate,
+    firstDate,
+    elm,
+    getEvent,
+    idx,
+    findToday,
+    isTrue,
+    month,
+    year,
+  } = props;
+
   return (
-    <Form
-      onClick={() => {
-        getId(idx);
-      }}
-    >
-      <DateNum lastDate={lastDate} firstDate={firstDate} findToday={findToday}>
-        <TodayCSS findToday={findToday}>{elm}</TodayCSS>일
-      </DateNum>
-    </Form>
+    <>
+      <Form
+        onClick={() => {
+          getEvent(idx);
+        }}
+      >
+        <DateNum
+          lastDate={lastDate}
+          firstDate={firstDate}
+          findToday={findToday}
+        >
+          <TodayCSS findToday={findToday}>{elm}</TodayCSS>일
+        </DateNum>
+        {isTrue && <Modal elm={elm} month={month} year={year} />}
+      </Form>
+    </>
   );
 };
 const Form = styled.li`
+  positon: relative;
   padding: 1vw 1.5vw 0 0;
   width: calc(100% / 7);
   height: 9vw;

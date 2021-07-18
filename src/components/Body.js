@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Dates from './Dates';
 
 const Body = (props) => {
-  const { totalDate, today, month } = props;
+  const { totalDate, today, month, year } = props;
   const lastDate = totalDate.indexOf(1);
   const firstDate = totalDate.indexOf(1, 7);
-  const getId = (idx) => {
+
+  const [idxs, setIdxs] = useState();
+
+  const getEvent = (idx) => {
     console.log(idx);
+    setIdxs(idx);
   };
   //today
   const findToday = totalDate.indexOf(today);
@@ -21,9 +25,12 @@ const Body = (props) => {
             idx={idx}
             lastDate={lastDate}
             firstDate={firstDate}
-            getId={getId}
+            getEvent={getEvent}
             elm={elm}
+            isTrue={idx === idxs && true}
             findToday={findToday === idx && month === getMonth && findToday}
+            month={month}
+            year={year}
           ></Dates>
         );
       })}
