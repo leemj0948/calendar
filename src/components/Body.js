@@ -7,9 +7,7 @@ import { KEY } from '../Config';
 import { connect } from 'react-redux';
 
 //일 ,월
-const Body = ({ day, month, year, calendardatearr, getToday }) => {
-  // const { totalDate } = props;
-  console.log(calendardatearr);
+const Body = ({ month, year, calendardatearr, getToday }) => {
   const lastDate = calendardatearr.indexOf(1);
   const firstDate = calendardatearr.indexOf(1, 7);
 

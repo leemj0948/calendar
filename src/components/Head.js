@@ -7,19 +7,7 @@ import {
   increase,
 } from '../modules/calendar/calendar.action';
 
-const Head = ({
-  nextMonth,
-  year,
-  gotoday,
-  setMonth,
-  month,
-  prevMonth,
-  nextMonthValue,
-  today,
-}) => {
-  // const { year, goToday, setMonth } = props;
-
-  console.log(year, month);
+const Head = ({ nextMonth, year, gotoday, month, prevMonth }) => {
   return (
     <Form>
       <Nav>
@@ -90,13 +78,10 @@ const Day = styled.li`
 `;
 
 const DAY = ['일', '월', '화', '수', '목', '금', '토'];
-// const mapStateToProps = ({ caln: { nextMonthValue } }) => ({
-//   nextMonthValue: nextMonthValue,
-// });
+
 const mapStateToProps = (state) => ({
   nextMonthValue: state.caln.month,
   today: state.caln.day,
-  // getToday: state.caln.getToday,
 });
 const mapDispatchToProps = (dispatch) => ({
   nextMonth: (month) => dispatch(increase(month)),
