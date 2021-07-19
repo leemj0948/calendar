@@ -1,10 +1,18 @@
 import CalendarType from './calendar.type';
-import { getNextMonth } from './calnder.util';
+import {
+  getNextMonth,
+  getprevMonth,
+  goToday,
+  makeDateArr,
+} from './calnder.util';
 
 const initialState = {
   today: new Date(),
   year: new Date().getFullYear(),
   month: new Date().getMonth() + 1,
+  day: new Date().getDate(),
+  calendardatearr: [],
+  getToday: 0,
   // thisMonth: DATE.getMonth() + 1;
 };
 
@@ -24,7 +32,18 @@ export default function calendar(state = initialState, action) {
     case CalendarType.DECREASE:
       return {
         ...state,
-        month: action.payload - 1,
+        month: getprevMonth(state.month, action.payload),
+      };
+    case CalendarType.SHOWCALENDAR:
+      return {
+        ...state,
+        calendardatearr: makeDateArr(state.year, state.month),
+      };
+    case CalendarType.GOTODAY:
+      return {
+        ...state,
+        getToday: goToday(),
+        month: new Date().getMonth() + 1,
       };
     default:
       return state;

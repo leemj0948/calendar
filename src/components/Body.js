@@ -4,14 +4,17 @@ import Dates from './Dates';
 import axios from 'axios';
 import { API } from '../Config';
 import { KEY } from '../Config';
+import { connect } from 'react-redux';
 
-const Body = (props) => {
-  const { totalDate, today, month, year } = props;
-  const lastDate = totalDate.indexOf(1);
-  const firstDate = totalDate.indexOf(1, 7);
+//일 ,월
+const Body = ({ day, month, year, calendardatearr, getToday }) => {
+  // const { totalDate } = props;
+  console.log(calendardatearr);
+  const lastDate = calendardatearr.indexOf(1);
+  const firstDate = calendardatearr.indexOf(1, 7);
 
   //today
-  const findToday = totalDate.indexOf(today);
+  const findToday = calendardatearr.indexOf(getToday);
   const getMonth = new Date().getMonth() + 1;
 
   // const runAxios = async () => {
@@ -34,20 +37,19 @@ const Body = (props) => {
 
   return (
     <Form>
-      {totalDate.map((elm, idx) => {
-        return (
-          <Dates
-            key={idx}
-            idx={idx}
-            lastDate={lastDate}
-            firstDate={firstDate}
-            elm={elm}
-            findToday={findToday === idx && month === getMonth && findToday}
-            month={month}
-            year={year}
-          ></Dates>
-        );
-      })}
+      {calendardatearr === 0 ||
+        calendardatearr.map((elm, idx) => {
+          return (
+            <Dates
+              key={idx}
+              idx={idx}
+              lastDate={lastDate}
+              firstDate={firstDate}
+              elm={elm}
+              findToday={findToday === idx && month === getMonth && findToday}
+            ></Dates>
+          );
+        })}
     </Form>
   );
 };
@@ -56,4 +58,10 @@ const Form = styled.div`
   display: flex;
   flex-flow: row wrap;
 `;
-export default Body;
+
+const mapStateToProps = ({ caln: { month, year, calendardatearr } }) => ({
+  month,
+  calendardatearr,
+  year,
+});
+export default connect(mapStateToProps, null)(Body);

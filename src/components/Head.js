@@ -1,15 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { increase } from '../modules/calendar/calendar.action';
+import {
+  decrease,
+  gotoday,
+  increase,
+} from '../modules/calendar/calendar.action';
 
 const Head = ({
   nextMonth,
   year,
-  goToday,
+  gotoday,
   setMonth,
   month,
+  prevMonth,
   nextMonthValue,
+  today,
 }) => {
   // const { year, goToday, setMonth } = props;
 
@@ -18,11 +24,11 @@ const Head = ({
     <Form>
       <Nav>
         <Year>
-          {year}년 {month}월 {nextMonthValue}
+          {year}년 {month}월
         </Year>
         <BtnBox>
-          <Btn onClick={() => setMonth(month - 1)}>&lt;</Btn>
-          <Btn width="3vw" onClick={() => goToday()}>
+          <Btn onClick={() => prevMonth(month)}>&lt;</Btn>
+          <Btn width="3vw" onClick={() => gotoday()}>
             오늘
           </Btn>
           <Btn onClick={() => nextMonth(month)}>&gt;</Btn>
@@ -89,9 +95,13 @@ const DAY = ['일', '월', '화', '수', '목', '금', '토'];
 // });
 const mapStateToProps = (state) => ({
   nextMonthValue: state.caln.month,
+  today: state.caln.day,
+  // getToday: state.caln.getToday,
 });
 const mapDispatchToProps = (dispatch) => ({
   nextMonth: (month) => dispatch(increase(month)),
+  prevMonth: (month) => dispatch(decrease(month)),
+  gotoday: () => dispatch(gotoday()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Head);

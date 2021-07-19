@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import Modal from './Modal';
 
-const Dates = (props) => {
-  const { lastDate, firstDate, elm, findToday, month, year, idx } = props;
-
+//일, 월 ,년도
+const Dates = ({ lastDate, firstDate, elm, findToday, idx, month, year }) => {
   const [userInput, setUserInput] = useState({});
   const [evtList, setEvtList] = useState([]);
   const [openModal, setOpenModal] = useState(false);
@@ -116,5 +116,8 @@ const List = styled.span`
   background-color: #f7ced9;
   border-radius: 5px;
 `;
-
-export default Dates;
+const mapStateToProps = ({ caln: month, year }) => ({
+  month,
+  year,
+});
+export default connect(mapStateToProps)(Dates);
