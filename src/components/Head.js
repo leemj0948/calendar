@@ -1,20 +1,30 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
+import { increase } from '../modules/calendar/calendar.action';
 
-const Head = (props) => {
-  const { year, month, goToday, setMonth } = props;
+const Head = ({
+  nextMonth,
+  year,
+  goToday,
+  setMonth,
+  month,
+  nextMonthValue,
+}) => {
+  // const { year, goToday, setMonth } = props;
+  console.log(nextMonthValue);
   return (
     <Form>
       <Nav>
         <Year>
-          {year}년 {month}월
+          {year}년 {month}월 {nextMonthValue}
         </Year>
         <BtnBox>
           <Btn onClick={() => setMonth(month - 1)}>&lt;</Btn>
           <Btn width="3vw" onClick={() => goToday()}>
             오늘
           </Btn>
-          <Btn onClick={() => setMonth(month + 1)}>&gt;</Btn>
+          <Btn onClick={() => nextMonth(month)}>&gt;</Btn>
         </BtnBox>
       </Nav>
       <Days>
@@ -73,4 +83,14 @@ const Day = styled.li`
 `;
 
 const DAY = ['일', '월', '화', '수', '목', '금', '토'];
-export default Head;
+// const mapStateToProps = ({ caln: { nextMonthValue } }) => ({
+//   nextMonthValue: nextMonthValue,
+// });
+const mapStateToProps = (state) => ({
+  nextMonthValue: state.caln.month,
+});
+const mapDispatchToProps = (dispatch) => ({
+  nextMonth: (month) => dispatch(increase(month)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Head);

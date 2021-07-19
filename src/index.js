@@ -5,10 +5,15 @@ import { ThemeProvider } from 'styled-components';
 import Theme from './styles/Theme';
 import Main from './Main';
 
+import { Provider } from 'react-redux';
+import store from './modules/store';
+
 ReactDOM.render(
-  <ThemeProvider theme={Theme}>
-    <GlobalStyle />
-    <Main />
-  </ThemeProvider>,
+  <Provider store={store}>
+    <ThemeProvider theme={Theme}>
+      <GlobalStyle />
+      <Main />
+    </ThemeProvider>
+  </Provider>,
   document.getElementById('root')
 );

@@ -14,19 +14,23 @@ const Body = (props) => {
   const findToday = totalDate.indexOf(today);
   const getMonth = new Date().getMonth() + 1;
 
-  const runAxios = async () => {
-    try {
-      const res = await axios.get(
-        `${API}solYear=${year}&solMonth=${month}&ServiceKey=${KEY}`
-      );
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  // const runAxios = async () => {
+  //   try {
+  //     // const set = axios.set({ 'access-control-allow-origin': '*' });
+  //     const res = await axios.get(
+  //       `${API}solYear=${year}&solMonth=${month}&ServiceKey=${KEY}`
+  //     );
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
 
-  useEffect(() => {
-    runAxios();
-  });
+  // useEffect(() => {
+  //   // runAxios();
+  //   fetch(`${API}solYear=${year}&solMonth=${month}&ServiceKey=${KEY}`).then(
+  //     (res) => console.log(res)
+  //   );
+  // }, []);
 
   return (
     <Form>
