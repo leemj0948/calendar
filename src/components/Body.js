@@ -1,21 +1,33 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Dates from './Dates';
+import axios from 'axios';
+import { API } from '../Config';
+import { KEY } from '../Config';
 
 const Body = (props) => {
   const { totalDate, today, month, year } = props;
   const lastDate = totalDate.indexOf(1);
   const firstDate = totalDate.indexOf(1, 7);
 
-  const [idxs, setIdxs] = useState();
-
-  const getEvent = (idx) => {
-    console.log(idx);
-    setIdxs(idx);
-  };
   //today
   const findToday = totalDate.indexOf(today);
   const getMonth = new Date().getMonth() + 1;
+
+  const runAxios = async () => {
+    try {
+      const res = await axios.get(
+        `${API}solYear=${year}&solMonth=${month}&ServiceKey=${KEY}`
+      );
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    runAxios();
+  });
+
   return (
     <Form>
       {totalDate.map((elm, idx) => {
@@ -25,9 +37,7 @@ const Body = (props) => {
             idx={idx}
             lastDate={lastDate}
             firstDate={firstDate}
-            getEvent={getEvent}
             elm={elm}
-            isTrue={idx === idxs && true}
             findToday={findToday === idx && month === getMonth && findToday}
             month={month}
             year={year}
@@ -42,31 +52,4 @@ const Form = styled.div`
   display: flex;
   flex-flow: row wrap;
 `;
-// const Date = styled.li`
-//   padding: 1vw 1.5vw 0 0;
-//   width: calc(100% / 7);
-//   height: 9vw;
-//   text-align: right;
-//   border-bottom: 1px solid #e4e3e6;
-//   border-left: 1px solid #e4e3e6;
-
-//   ${(props) =>
-//     props.idx < props.lastDate &&
-//     `
-//     color: #969696;
-//   `};
-
-//   ${(props) =>
-//     props.firstDate > 0 &&
-//     props.idx > props.firstDate - 1 &&
-//     `
-//     color: #969696;
-//   `};
-
-//   :nth-child(7n + 1),
-//   :nth-child(7n) {
-//     color: #969696;
-//     background-color: #f5f5f5;
-//   }
-// `;
 export default Body;

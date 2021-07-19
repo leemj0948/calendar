@@ -1,42 +1,72 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Modal from './Modal';
 
 const Dates = (props) => {
-  const {
-    lastDate,
-    firstDate,
-    elm,
-    getEvent,
-    idx,
-    findToday,
-    isTrue,
-    month,
-    year,
-  } = props;
+  const { lastDate, firstDate, elm, findToday, month, year, idx } = props;
+
+  const [userInput, setUserInput] = useState({});
+  const [evtList, setEvtList] = useState([]);
+  const [openModal, setOpenModal] = useState(false);
+  let dateKey = `${month}` + `${elm}`;
+  const registEvent = (value) => {
+    setEvtList([...evtList, value]);
+    setUserInput('');
+    setOpenModal(false);
+  };
 
   return (
     <>
       <Form
-        onClick={() => {
-          getEvent(idx);
+        onDoubleClick={() => {
+          setOpenModal(true);
         }}
       >
         <DateNum
+          idx={idx}
           lastDate={lastDate}
           firstDate={firstDate}
           findToday={findToday}
         >
           <TodayCSS findToday={findToday}>{elm}</TodayCSS>일
         </DateNum>
-        {isTrue && <Modal elm={elm} month={month} year={year} />}
+        {openModal && (
+          <Modal
+            elm={elm}
+            month={month}
+            year={year}
+            registEvent={registEvent}
+            setOpenModal={setOpenModal}
+            openModal={openModal}
+            userInput={userInput}
+            setUserInput={setUserInput}
+          />
+        )}
+        {Boolean(evtList[0]) && (
+          <Lists>
+            {evtList.map((list, index) => {
+              return (
+                list.slice(0, list.indexOf('_')) === dateKey && (
+                  <List
+                    key={index}
+                    onClick={() => {
+                      setOpenModal(true);
+                    }}
+                  >
+                    {list.slice(list.indexOf('_') + 1, list.length)}
+                  </List>
+                )
+              );
+            })}
+          </Lists>
+        )}
       </Form>
     </>
   );
 };
 const Form = styled.li`
-  positon: relative;
-  padding: 1vw 1.5vw 0 0;
+  position: relative;
+  padding: 0 0.6vw;
   width: calc(100% / 7);
   height: 9vw;
   text-align: right;
@@ -51,11 +81,8 @@ const Form = styled.li`
 `;
 
 const DateNum = styled.div`
-  ${(props) =>
-    props.idx < props.lastDate &&
-    `
-    color: #969696;
-  `};
+  padding: 1vw 0.9vw 0 0;
+  ${(props) => props.idx < props.lastDate && `color: #969696;`};
 
   ${(props) =>
     props.firstDate > 0 &&
@@ -64,6 +91,7 @@ const DateNum = styled.div`
     color: #969696;
   `};
 `;
+
 const TodayCSS = styled.span`
   ${(props) =>
     props.findToday &&
@@ -75,6 +103,18 @@ const TodayCSS = styled.span`
     color: #FFFFFF;
     background-color:red
  `}
+`;
+
+const Lists = styled.div`
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+`;
+const List = styled.span`
+  margin-top: 0.3vw;
+  padding-left: 0.5vw;
+  background-color: #f7ced9;
+  border-radius: 5px;
 `;
 
 export default Dates;
