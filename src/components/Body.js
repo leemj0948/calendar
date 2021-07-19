@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Dates from './Dates';
+import axios from 'axios';
+import { API } from '../Config';
+import { KEY } from '../Config';
 
 const Body = (props) => {
   const { totalDate, today, month, year } = props;
@@ -10,6 +13,21 @@ const Body = (props) => {
   //today
   const findToday = totalDate.indexOf(today);
   const getMonth = new Date().getMonth() + 1;
+
+  const runAxios = async () => {
+    try {
+      const res = await axios.get(
+        `${API}solYear=${year}&solMonth=${month}&ServiceKey=${KEY}`
+      );
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    runAxios();
+  });
+
   return (
     <Form>
       {totalDate.map((elm, idx) => {
