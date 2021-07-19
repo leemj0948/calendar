@@ -12,7 +12,8 @@ const Head = ({
   nextMonthValue,
 }) => {
   // const { year, goToday, setMonth } = props;
-  console.log(nextMonthValue);
+
+  console.log(year, month);
   return (
     <Form>
       <Nav>
