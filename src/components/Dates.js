@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import Modal from './Modal';
 
 const Dates = (props) => {
-  const { lastDate, firstDate, elm, findToday, month, year, idx } = props;
+  const { lastDate, firstDate, elm, findToday, month, year, idx, holiday } =
+    props;
 
   const [userInput, setUserInput] = useState({});
   const [evtList, setEvtList] = useState([]);
@@ -41,6 +42,22 @@ const Dates = (props) => {
             userInput={userInput}
             setUserInput={setUserInput}
           />
+        )}
+        {holiday !== undefined && (
+          <Holidays>
+            {holiday !== undefined &&
+              holiday.map((evt, index) => {
+                let key =
+                  elm.length < 2
+                    ? `${year}` + `${month}` + `${elm}`
+                    : `${year}` + `${month}` + '0' + `${elm}`;
+                return (
+                  Number(key) === evt.locdate && (
+                    <Holiday key={index}>{evt.dateName}</Holiday>
+                  )
+                );
+              })}
+          </Holidays>
         )}
         {Boolean(evtList[0]) && (
           <Lists>
@@ -114,6 +131,19 @@ const List = styled.span`
   margin-top: 0.3vw;
   padding-left: 0.5vw;
   background-color: #f7ced9;
+  border-radius: 5px;
+`;
+const Holidays = styled.div`
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+`;
+const Holiday = styled.div`
+  margin-top: 0.3vw;
+  padding-left: 0.5vw;
+  color: red;
+  font-weight: 700;
+  background-color: skyblue;
   border-radius: 5px;
 `;
 
