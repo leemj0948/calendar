@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Dates from './Dates';
 import axios from 'axios';
-import { API } from '../Config';
-import { KEY } from '../Config';
 
 const Body = (props) => {
   const { totalDate, today, month, year } = props;
